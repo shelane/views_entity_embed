@@ -1,0 +1,21 @@
+{
+  "name": "drupal/views_entity_embed",
+  "description": "Allows views to be embedded using a text editor.",
+  "type": "drupal-module",
+  "homepage": "https://www.drupal.org/project/views_entity_embed",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/views_entity_embed"
+  },
+  "license": "GPL-2.0+",
+  "require-dev": {
+    "drupal/embed": "^1.4",
+    "drupal/entity_embed": "^8.2"
+  },  
+  "authors": [
+    {
+      "name": "Milka Petkova",
+      "email": "milka.petkova.88@gmail.com",
+      "role": "Creator and Maintainer"
+    }
+  ]
+}
