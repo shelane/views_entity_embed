@@ -14,7 +14,6 @@
     // The plugin initialization logic goes inside this method.
     beforeInit: function (editor) {
       // Configure CKEditor DTD for custom drupal-views element.
-      // @see https://www.drupal.org/node/2448449#comment-9717735
       var dtd = CKEDITOR.dtd, tagName;
       dtd['drupal-views'] = {'#': 1};
       // Register drupal-views element as allowed child, in each tag that can
@@ -27,8 +26,8 @@
 
       // Generic command for adding/editing views.
       editor.addCommand('editdrupalviews', {
-        allowedContent: 'drupal-views[data-view-name,data-view-display,data-view-arguments]',
-        requiredContent: 'drupal-views[data-view-name,data-view-display,data-view-arguments]',
+        allowedContent: 'drupal-views[data-view-name,data-view-display,data-embed-button]',
+        requiredContent: 'drupal-views[data-view-name,data-view-display]',
         modes: { wysiwyg : 1 },
         canUndo: true,
         exec: function (editor, data) {
@@ -52,7 +51,6 @@
           }
 
           var embed_button_id = data.id ? data.id : existingValues['data-embed-button'];
-
           var dialogSettings = {
             dialogClass: 'views-entity-embed-select-dialog',
             resizable: false
@@ -81,8 +79,8 @@
       // Register the views embed widget.
       editor.widgets.add('drupalviews', {
         // Minimum HTML which is required by this widget to work.
-        allowedContent: 'drupal-views[data-view-name,data-view-display,data-views-arguments]',
-        requiredContent: 'drupal-views[data-view-name,data-view-display,data-views-arguments]',
+        allowedContent: 'drupal-views[data-view-name,data-view-display,data-views-arguments,data-embed-button]',
+        requiredContent: 'drupal-views[data-view-name,data-view-display,data-views-arguments,data-embed-button]',
 
         // Simply recognize the element as our own. The inner markup if fetched
         // and inserted the init() callback, since it requires the actual DOM
@@ -115,7 +113,6 @@
             // Use a custom event to trigger the call.
             event: 'views_entity_embed_dummy_event'
           });
-          console.log(viewEmbedPreview.execute());
           viewEmbedPreview.execute();
         },
 
@@ -137,7 +134,7 @@
           editor.ui.addButton(button.id, {
             label: button.label,
             data: button,
-            allowedContent: 'drupal-views[!data-view-name,!data-view-display,!data-view-arguments]',
+            allowedContent: 'drupal-views[!data-view-name,!data-view-display,!data-view-arguments, !data-embed-button]',
             click: function(editor) {
               editor.execCommand('editdrupalviews', this.data);
             },
@@ -165,8 +162,8 @@
 
       // Execute widget editing action on double click.
       editor.on('doubleclick', function (evt) {
-        var element = getSelectedEmbeddedViews(editor) || evt.data.element;
 
+        var element = getSelectedEmbeddedViews(editor) || evt.data.element;
         if (isEditableViewsWidget(editor, element)) {
           editor.execCommand('editdrupalviews');
         }

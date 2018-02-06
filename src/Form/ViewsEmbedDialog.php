@@ -77,7 +77,8 @@ class ViewsEmbedDialog extends FormBase {
     // Initialize entity element with form attributes, if present.
     $view_element = empty($values['view_element']) ? [] : $values['view_element'];
     $view_element += empty($input['view_element']) ? [] : $input['view_element'];
-
+    $form_state->set('embed_button', $embed_button);
+    $form_state->set('editor', $editor);
     if (!$form_state->get('step')) {
       $form_state->set('step', 'select_view');
     }
@@ -426,7 +427,7 @@ class ViewsEmbedDialog extends FormBase {
     $view = $form_state->get('view');
     $display = $form_state->get('select_display');
     $build_arg = $form_state->getValue('build_select_arguments');
-
+    $embed_button = $form_state->get('embed_button');
     // Display errors in form, if any.
     if ($form_state->hasAnyErrors()) {
       unset($form['#prefix'], $form['#suffix']);
@@ -440,7 +441,7 @@ class ViewsEmbedDialog extends FormBase {
       $view_element = $form_state->get('view_element');
       // Serialize entity embed settings to JSON string.
       $view_element['data-view-arguments'] = Json::encode($build_arg);
-
+      $view_element['data-embed-button'] = $embed_button->id();
       // Filter out empty attributes.
       $view_element = array_filter($view_element, function ($value) {
         return (bool) Unicode::strlen((string) $value);
