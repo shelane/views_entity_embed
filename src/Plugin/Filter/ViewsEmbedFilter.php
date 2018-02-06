@@ -100,11 +100,11 @@ class ViewsEmbedFilter extends FilterBase implements ContainerFactoryPluginInter
   public function tips($long = FALSE) {
     if ($long) {
       return $this->t('
-        <p>You can embed entities. Additional properties can be added to the embed tag like data-caption and data-align if supported. Example:</p>
-        <code>&lt;drupal-entity data-entity-type="node" data-entity-uuid="07bf3a2e-1941-4a44-9b02-2d1d7a41ec0e" data-view-mode="teaser" /&gt;</code>');
+        <p>You can embed Views. Additional properties can be added to the embed tag like data-caption and data-align if supported. Example:</p>
+        <code><drupal-views data-view-display="default" data-view-name="content"></drupal-views></code>');
     }
     else {
-      return $this->t('You can embed entities.');
+      return $this->t('You can embed Views entities.');
     }
   }
 

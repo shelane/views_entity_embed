@@ -15,7 +15,7 @@ function views_entity_embed_help($route_name, RouteMatchInterface $route_match) 
   if ($route_name == 'help.page.views_entity_embed') {
     $output = '';
     $output .= '<h3>' . t('About') . '</h3>';
-    $output .= '<p>' . t('Views entity embed  module is module that provides CKE Editor embed functionality.') . '</p>';
+    $output .= '<p>' . t('Views entity embed  module provides Views to be embed with CKE Editor.') . '</p>';
     return $output;
   }
 }
