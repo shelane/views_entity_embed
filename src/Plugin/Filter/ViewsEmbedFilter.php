@@ -117,14 +117,9 @@ class ViewsEmbedFilter extends FilterBase implements ContainerFactoryPluginInter
     $view_attr = Json::decode($node->getAttribute('data-view-arguments'));
     $view = Views::getView($view_name);
     $view->setDisplay($view_display);
-    /*
-     * @TODO Override title options.
-     * /
-    /*
     if ($view_attr['override_title']) {
-    $view->setTitle($view_attr['title']);
+      $view->setTitle($view_attr['title']);
     }
-     */
     if (!empty($view_attr['filters'])) {
       $view->setArguments($view_attr['filters']);
     }
@@ -136,12 +131,12 @@ class ViewsEmbedFilter extends FilterBase implements ContainerFactoryPluginInter
       '#context' => [
         'data-view-name' => $view_name,
         'data-view-display' => $view_display,
-        // @TODO Override title option.
-        // 'data-override-title' => $view_attr['override_title'],
-        // 'data-title' => $view_attr['title'],.
+        'data-override-title' => $view_attr['override_title'],
+        'data-title' => $view_attr['title'],
       ],
 
     ];
+
     return $build;
   }
 

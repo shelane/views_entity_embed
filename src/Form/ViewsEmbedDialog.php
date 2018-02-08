@@ -373,6 +373,10 @@ class ViewsEmbedDialog extends FormBase {
       ],
     ];
     if (!empty($view->argument)) {
+      $form['build_select_arguments']['filters'] = [
+        '#type' => 'details',
+        '#title' => t('Views contexual filters'),
+      ];
       foreach ($view->argument as $id => $argument) {
         $form['build_select_arguments']['filters'][$id] = [
           '#type' => 'textfield',
@@ -380,6 +384,12 @@ class ViewsEmbedDialog extends FormBase {
           '#default_value' => isset($select_arguments[$id]) ? $select_arguments[$id] : '',
         ];
       }
+    }
+    else {
+      $form['build_select_arguments']['no_contextual_filters'] = [
+        '#type' => 'item',
+        '#description' => t('This View does not have a contexual filters.'),
+      ];
     }
 
     $form['actions'] = [
