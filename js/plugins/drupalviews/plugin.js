@@ -6,7 +6,7 @@
 (function ($, Drupal, CKEDITOR) {
 
   "use strict";
-  
+
   CKEDITOR.plugins.add('drupalviews', {
     // This plugin requires the Widgets System defined in the 'widget' plugin.
     requires: 'widget',
@@ -59,7 +59,6 @@
           var saveCallback = function (values) {
             var viewElement = editor.document.createElement('drupal-views');
             var attributes = values.attributes;
-            //console.log(attributes);
             for (var key in attributes) {
               viewElement.setAttribute(key, attributes[key]);
             }
@@ -90,13 +89,13 @@
           if (attributes['data-view-name'] === undefined || (attributes['data-view-display'] === undefined)) {
             return;
           }
-         
+
           // Generate an ID for the element, so that we can use the Ajax
           // framework.
           element.attributes.id = generateEmbedId();
           return element;
         },
-   
+
         // Fetch the rendered views.
         init: function () {
           /** @type {CKEDITOR.dom.element} */
@@ -125,17 +124,16 @@
           return element;
         }
       });
-      
+
       // Register the toolbar buttons.
       if (editor.ui.addButton) {
-        
         for (var key in editor.config.DrupalViews_buttons) {
           var button = editor.config.DrupalViews_buttons[key];
           editor.ui.addButton(button.id, {
             label: button.label,
             data: button,
             allowedContent: 'drupal-views[!data-view-name,!data-view-display,!data-view-arguments, !data-embed-button]',
-            click: function(editor) {
+            click: function (editor) {
               editor.execCommand('editdrupalviews', this.data);
             },
             icon: button.image
@@ -153,7 +151,7 @@
           group: 'drupalviews'
         });
 
-        editor.contextMenu.addListener(function(element) {
+        editor.contextMenu.addListener(function (element) {
           if (isEditableViewsWidget(editor, element)) {
             return { drupalviews: CKEDITOR.TRISTATE_OFF };
           }
@@ -192,7 +190,7 @@
    * @param {CKEDITOR.editor} editor
    * @param {CKEDITOR.htmlParser.element} element
    */
-  function isEditableViewsWidget (editor, element) {
+  function isEditableViewsWidget(editor, element) {
     var widget = editor.widgets.getByElement(element, true);
     if (!widget || widget.name !== 'drupalviews') {
       return false;

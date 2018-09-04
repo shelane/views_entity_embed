@@ -395,21 +395,7 @@ class ViewsEmbedDialog extends FormBase {
     $form['actions'] = [
       '#type' => 'actions',
     ];
-    // @TODO add Back button.
 
-    /*
-      $form['actions']['back'] = [
-      '#type' => 'submit',
-      '#value' => $this->t('Back'),
-      // No regular submit-handler. This form only works via JavaScript.
-      '#submit' => [],
-      '#ajax' => [
-      'callback' => !empty($this->entityBrowserSettings['display_review']) ?
-      '::submitAndShowReview' : '::submitAndShowSelect',.
-      'event' => 'click',
-      ],
-      ];
-     */
     $form['actions']['save_modal'] = [
       '#type' => 'submit',
       '#value' => $this->t('Embed'),
@@ -459,11 +445,6 @@ class ViewsEmbedDialog extends FormBase {
 
       // Allow other modules to alter the values before
       // getting submitted to the WYSIWYG.
-      // @TODO
-      /* $this->moduleHandler->alter(
-        'views_entity_embed_values', $view_element, $view, $display, $form_state
-        );
-       */
       $response->addCommand(new EditorDialogSave(['attributes' => $view_element]));
       $response->addCommand(new CloseModalDialogCommand());
     }
@@ -475,7 +456,6 @@ class ViewsEmbedDialog extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    
   }
 
 }
