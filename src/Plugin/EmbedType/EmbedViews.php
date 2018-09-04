@@ -70,10 +70,10 @@ class EmbedViews extends EmbedTypeBase implements ContainerFactoryPluginInterfac
       '#title' => $this->t('Filter which Display to be allowed as options:'),
       '#default_value' => $this->getConfigurationValue('filter_displays'),
     ];
-    $form['diplays_options'] = [
+    $form['display_options'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Allowed displays'),
-      '#default_value' => $this->getConfigurationValue('diplays_options'),
+      '#default_value' => $this->getConfigurationValue('display_options'),
       '#options' => $this->getAllDisplays(),
       '#states' => [
         'visible' => [':input[name="type_settings[filter_displays]"]' => ['checked' => TRUE]],
@@ -97,7 +97,7 @@ class EmbedViews extends EmbedTypeBase implements ContainerFactoryPluginInterfac
       $this->setConfigurationValue('views_options', $views_options);
 
       // Display options.
-      $displays_options = $form_state->getValue('filter_displays') ? array_filter($form_state->getValue('diplays_options')) : [];
+      $displays_options = $form_state->getValue('filter_displays') ? array_filter($form_state->getValue('display_options')) : [];
       $this->setConfigurationValue('display_options', $displays_options);
 
     }
