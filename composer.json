@@ -7,10 +7,10 @@
     "issues": "https://www.drupal.org/project/issues/views_entity_embed"
   },
   "license": "GPL-2.0+",
-  "require-dev": {
+  "require": {
     "drupal/embed": "^1.4",
     "drupal/entity_embed": "^8.2"
-  },  
+  },
   "authors": [
     {
       "name": "Milka Petkova",
