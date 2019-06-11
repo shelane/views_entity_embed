@@ -123,6 +123,10 @@ class ViewsEmbedFilter extends FilterBase implements ContainerFactoryPluginInter
     if (!empty($view_attr['filters'])) {
       $view->setArguments($view_attr['filters']);
     }
+    // Ensure that views default executions are run. These ensure that view
+    // display settings such as "use_ajax" are actually read and respected.
+    $view->preExecute();
+    $view->execute();
 
     $build = [
       '#theme_wrappers' => ['views_entity_embed_container'],
