@@ -121,7 +121,10 @@ class ViewsEmbedFilter extends FilterBase implements ContainerFactoryPluginInter
       $view->setTitle($view_attr['title']);
     }
     if (!empty($view_attr['filters'])) {
-      $view->setArguments($view_attr['filters']);
+      $view_filters = array_filter($view_attr['filters'], function ($k) use ($view_attr) {
+        return $view_attr['filters'][$k];
+      }, ARRAY_FILTER_USE_KEY);
+      $view->setArguments($view_filters);
     }
     // Ensure that views default executions are run. These ensure that view
     // display settings such as "use_ajax" are actually read and respected.
