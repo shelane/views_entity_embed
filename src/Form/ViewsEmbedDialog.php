@@ -382,12 +382,13 @@ class ViewsEmbedDialog extends FormBase {
         ],
       ],
     ];
-    if (!empty($view->argument)) {
+    $arguments = $view->display_handler->getHandlers('argument');
+    if (!empty($arguments)) {
       $form['build_select_arguments']['filters'] = [
         '#type' => 'details',
         '#title' => t('Views contexual filters'),
       ];
-      foreach ($view->argument as $id => $argument) {
+      foreach ($arguments as $id => $argument) {
         $form['build_select_arguments']['filters'][$id] = [
           '#type' => 'textfield',
           '#title' => $argument->adminLabel(),
