@@ -34,4 +34,15 @@ class DrupalViews extends EmbedCKEditorPluginBase {
     ];
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getLibraries(Editor $editor) {
+    return [
+      'core/jquery',
+      'core/drupal',
+      'core/drupal.ajax',
+    ];
+  }
+
 }

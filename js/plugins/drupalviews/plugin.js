@@ -64,9 +64,6 @@
             }
             editor.insertHtml(viewElement.getOuterHtml());
             if (existingElement) {
-              // Detach the behaviors that were attached when the views content
-              // was inserted.
-              Drupal.runEmbedBehaviors('detach', existingElement.$);
               existingElement.remove();
             }
           };
@@ -100,19 +97,15 @@
         init: function () {
           /** @type {CKEDITOR.dom.element} */
           var element = this.element;
-          // Use the Ajax framework to fetch the HTML, so that we can retrieve
-          // out-of-band assets (JS, CSS...).
-          var viewEmbedPreview = Drupal.ajax({
-            base: element.getId(),
-            element: element.$,
+          var widget = this;
+
+          $.get({
             url: Drupal.url('embed/preview/' + editor.config.drupal.format + '?' + $.param({
               value: element.getOuterHtml()
             })),
-            progress: {type: 'none'},
-            // Use a custom event to trigger the call.
-            event: 'views_entity_embed_dummy_event'
+            dataType: 'html'}).done(function (previewHtml) {
+              widget.element.setHtml(previewHtml);
           });
-          viewEmbedPreview.execute();
         },
 
         // Downcast the element.
