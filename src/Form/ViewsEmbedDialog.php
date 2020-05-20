@@ -329,10 +329,10 @@ class ViewsEmbedDialog extends FormBase {
       if ($display->isEnabled()) {
 
         if (!$filter_displays) {
-          $displays[$id] = $id . '-' . $display->getOption('title');
+          $displays[$id] = $display->display['display_title'];
         }
         elseif (!empty($display_options[get_class($display)])) {
-          $displays[$id] = $id . '-' . $display->getOption('title');
+          $displays[$id] = $display->display['display_title'];
         }
       }
     }
