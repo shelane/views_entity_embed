@@ -448,7 +448,7 @@ class ViewsEmbedDialog extends FormBase {
       $view_element['data-embed-button'] = $embed_button->id();
       // Filter out empty attributes.
       $view_element = array_filter($view_element, function ($value) {
-        return (bool) Unicode::strlen((string) $value);
+        return (bool) mb_strlen((string) $value);
       });
 
       // Allow other modules to alter the values before
