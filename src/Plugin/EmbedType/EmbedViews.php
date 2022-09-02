@@ -6,7 +6,6 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\embed\EmbedType\EmbedTypeBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-// Use Drupal\views\Element\View;.
 use Drupal\views\Views;
 
 /**
@@ -87,7 +86,6 @@ class EmbedViews extends EmbedTypeBase implements ContainerFactoryPluginInterfac
    * {@inheritdoc}
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
-    $values = $form_state->getValues();
     if (!$form_state->hasAnyErrors()) {
       $this->setConfigurationValue('filter_views', $form_state->getValue('filter_views'));
       $this->setConfigurationValue('filter_displays', $form_state->getValue('filter_displays'));
@@ -106,7 +104,7 @@ class EmbedViews extends EmbedTypeBase implements ContainerFactoryPluginInterfac
   /**
    * Methods get all views as options list.
    */
-  protected function getAllViews() {
+  protected function getAllViews(): array {
     $views = [];
     foreach (Views::getAllViews() as $view) {
       if ($view->enable()) {
@@ -119,12 +117,11 @@ class EmbedViews extends EmbedTypeBase implements ContainerFactoryPluginInterfac
   /**
    * Method gets all displays as options list.
    */
-  protected function getAllDisplays() {
+  protected function getAllDisplays(): array {
     $displays = [];
     // Get all display plugins which provides the type.
     $display_plugins = Views::pluginManager('display')->getDefinitions();
-    $plugin_ids = [];
-    foreach ($display_plugins as $id => $definition) {
+    foreach ($display_plugins as $definition) {
       $displays[$definition['class']] = $definition['title'];
     }
     return $displays;

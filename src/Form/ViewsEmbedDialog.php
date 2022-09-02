@@ -2,7 +2,6 @@
 
 namespace Drupal\views_entity_embed\Form;
 
-use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\CloseModalDialogCommand;
 use Drupal\Core\Ajax\HtmlCommand;
@@ -121,7 +120,7 @@ class ViewsEmbedDialog extends FormBase {
   /**
    * Skip steps with only one options.
    */
-  protected function selectStepsOfForm(array &$form, FormStateInterface$form_state, EmbedButtonInterface $embed_button) {
+  protected function selectStepsOfForm(array &$form, FormStateInterface $form_state, EmbedButtonInterface $embed_button) {
 
     $view_element = $form_state->get('view_element');
     $filterByViews = $this->getViewsOptions($embed_button);
@@ -144,21 +143,22 @@ class ViewsEmbedDialog extends FormBase {
       $form_state->set('view_element', $view_element);
     }
     else {
-      // Else set the first step
+      // Else set the first step.
       $form_state->set('step', 'select_view');
     }
   }
+
   /**
    * Form constructor for the entity selection step.
    */
-  public function buildSelectViewStep(array &$form, FormStateInterface $form_state, $embed_button) {
+  public function buildSelectViewStep(array &$form, FormStateInterface $form_state, $embed_button): array {
 
     $view_element = $form_state->get('view_element');
 
     $form['view_name'] = [
       '#type' => 'select',
       '#options' => $this->getViewsOptions($embed_button),
-      '#title' => t('Select View'),
+      '#title' => $this->t('Select View'),
       '#required' => TRUE,
       '#default_value' => isset($view_element['data-view-name']) ? $view_element['data-view-name'] : '',
     ];
@@ -252,7 +252,7 @@ class ViewsEmbedDialog extends FormBase {
       // No regular submit-handler. This form only works via JavaScript.
       '#submit' => [],
       '#attributes' => [
-        // @TODO to be fix.
+        // @todo to be fix.
         'disabled' => 'disabled',
       ],
       /* '#ajax' => [
@@ -282,7 +282,7 @@ class ViewsEmbedDialog extends FormBase {
     if (empty($displays_options)) {
       $form['select_display_msg'] = [
         '#type' => '#markup',
-        '#markup' => t('There is no display available for this View.'),
+        '#markup' => $this->t('There is no display available for this View.'),
         '#weight' => -10,
       ];
       // Add disabled options for this case.
@@ -387,14 +387,12 @@ class ViewsEmbedDialog extends FormBase {
     $form['build_select_arguments']['override_title'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Override title'),
-      '#default_value' => isset($select_arguments['override_title']) ?
-        $select_arguments['override_title'] : '',
+      '#default_value' => $select_arguments['override_title'] ?? '',
     ];
     $form['build_select_arguments']['title'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Title'),
-      '#default_value' => isset($select_arguments['title']) ?
-        $select_arguments['title'] : '',
+      '#default_value' => $select_arguments['title'] ?? '',
       '#states' => [
         'visible' => [
           [
@@ -408,20 +406,20 @@ class ViewsEmbedDialog extends FormBase {
     if (!empty($arguments)) {
       $form['build_select_arguments']['filters'] = [
         '#type' => 'details',
-        '#title' => t('Views contexual filters'),
+        '#title' => $this->t('Views contexual filters'),
       ];
       foreach ($arguments as $id => $argument) {
         $form['build_select_arguments']['filters'][$id] = [
           '#type' => 'textfield',
           '#title' => $argument->adminLabel(),
-          '#default_value' => isset($select_arguments[$id]) ? $select_arguments[$id] : '',
+          '#default_value' => $select_arguments[$id] ?? '',
         ];
       }
     }
     else {
       $form['build_select_arguments']['no_contextual_filters'] = [
         '#type' => 'item',
-        '#description' => t('This View does not have a contexual filters.'),
+        '#description' => $this->t('This View does not have a contexual filters.'),
       ];
     }
 

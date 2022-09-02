@@ -28,8 +28,8 @@ class DrupalViews extends EmbedCKEditorPluginBase {
    */
   public function getConfig(Editor $editor) {
     return [
-      'DrupalViews_dialogTitleAdd' => t('Insert views'),
-      'DrupalViews_dialogTitleEdit' => t('Edit views'),
+      'DrupalViews_dialogTitleAdd' => $this->t('Insert views'),
+      'DrupalViews_dialogTitleEdit' => $this->t('Edit views'),
       'DrupalViews_buttons' => $this->getButtons(),
       'DrupalViews_previewCsrfToken' => \Drupal::csrfToken()->get('X-Drupal-EmbedPreview-CSRF-Token'),
     ];
