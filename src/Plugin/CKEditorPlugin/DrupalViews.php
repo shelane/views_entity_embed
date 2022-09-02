@@ -31,6 +31,7 @@ class DrupalViews extends EmbedCKEditorPluginBase {
       'DrupalViews_dialogTitleAdd' => t('Insert views'),
       'DrupalViews_dialogTitleEdit' => t('Edit views'),
       'DrupalViews_buttons' => $this->getButtons(),
+      'DrupalViews_previewCsrfToken' => \Drupal::csrfToken()->get('X-Drupal-EmbedPreview-CSRF-Token'),
     ];
   }
 

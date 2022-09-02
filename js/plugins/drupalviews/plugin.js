@@ -103,7 +103,11 @@
             url: Drupal.url('embed/preview/' + editor.config.drupal.format + '?' + $.param({
               value: element.getOuterHtml()
             })),
-            dataType: 'html'}).done(function (previewHtml) {
+            dataType: 'html',
+            headers: {
+              'X-Drupal-EmbedPreview-CSRF-Token': editor.config.DrupalViews_previewCsrfToken,
+            }
+          }).done(function (previewHtml) {
               widget.element.setHtml(previewHtml);
           });
         },
