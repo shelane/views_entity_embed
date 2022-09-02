@@ -5,8 +5,8 @@ core: 8.x
 core_version_requirement: ^8 || ^9
 package: Filters
 dependencies:
-  - editor
-  - embed
-  - filter
-  - views
-  - entity_embed
+  - drupal:editor
+  - drupal:filter
+  - drupal:views
+  - embed:embed
+  - entity_embed:entity_embed
