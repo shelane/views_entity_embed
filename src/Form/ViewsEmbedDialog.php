@@ -73,6 +73,28 @@ class ViewsEmbedDialog extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, EditorInterface $editor = NULL, EmbedButtonInterface $embed_button = NULL) {
 
+    $user_input = &$form_state->getUserInput();
+    if (!empty($user_input['editor_object'])) {
+      $view_element = $user_input['editor_object'];
+      if (is_string($view_element)) {
+        $view_element = json_decode($view_element, TRUE);
+      }
+
+      $view = Views::getView($view_element['data-view-name']);
+      $select_arguments = json_decode($view_element['data-view-arguments'], TRUE);
+      $select_arguments += $select_arguments['filters'];
+
+      $form_state->set('view', $view);
+      $form_state->set('view_element', $view_element);
+      $form_state->set('select_arguments', $select_arguments);
+      $form_state->set('step', 'select_arguments');
+
+      $form['editor_object'] = [
+        '#type' => 'hidden',
+        '#value' => json_encode($view_element),
+      ];
+    }
+
     $form_state->set('embed_button', $embed_button);
     $form_state->set('editor', $editor);
     $form['#tree'] = TRUE;
