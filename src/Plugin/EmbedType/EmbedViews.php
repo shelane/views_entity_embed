@@ -44,7 +44,7 @@ class EmbedViews extends EmbedTypeBase implements ContainerFactoryPluginInterfac
    * {@inheritdoc}
    */
   public function getDefaultIconUrl() {
-    return file_create_url(drupal_get_path('module', 'views_entity_embed') . '/js/plugins/drupalviews/views_entity_embed.png');
+    return \Drupal::service('file_url_generator')->generateAbsoluteString(\Drupal::service('extension.list.module')->getPath('views_entity_embed') . '/js/plugins/drupalviews/views_entity_embed.png');
   }
 
   /**

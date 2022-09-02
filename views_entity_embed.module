@@ -27,7 +27,7 @@ function views_entity_embed_theme() {
   return [
     'views_entity_embed_container' => [
       'render element' => 'element',
-      'path' => drupal_get_path('module', 'views_entity_embed') . '/templates',
+      'path' => \Drupal::service('extension.list.module')->getPath('views_entity_embed') . '/templates',
     ],
   ];
 }

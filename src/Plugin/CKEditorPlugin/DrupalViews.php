@@ -20,7 +20,7 @@ class DrupalViews extends EmbedCKEditorPluginBase {
    * {@inheritdoc}
    */
   public function getFile() {
-    return drupal_get_path('module', 'views_entity_embed') . '/js/plugins/drupalviews/plugin.js';
+    return \Drupal::service('extension.list.module')->getPath('views_entity_embed') . '/js/plugins/drupalviews/plugin.js';
   }
 
   /**
